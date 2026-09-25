@@ -1,0 +1,15 @@
+services:
+  server:
+    build: .
+    volumes:
+      - ../files/:/lfcs-notes
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - CHAOS_SCENARIO=${CHAOS_SCENARIO:-random}
+    networks:
+        - netbridge
+networks:
+  netbridge:
+    driver: bridge
+
