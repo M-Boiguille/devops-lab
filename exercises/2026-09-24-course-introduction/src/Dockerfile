@@ -1,8 +1,8 @@
 FROM ubuntu:22.04
 
-RUN apt update && apt upgrade -y
-
-RUN apt install openssh-server vim git curl ufw sudo wget -y
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  openssh-server vim git curl ufw sudo wget -y \
+  && rm -rf /var/lib/apt/lists/*.
 
 RUN groupadd dummy_sudo && \
   useradd -m -s /bin/bash exercise -g dummy_sudo && \
@@ -20,7 +20,7 @@ COPY ./ssh/dummy_ssh_key.pub /home/exercise/.ssh/authorized_keys
 RUN chown -R exercise:dummy_sudo /home/exercise/.ssh/ && \
   chmod 600 /home/exercise/.ssh/authorized_keys &&  mkdir -p /run/sshd
 
-RUN mkdir -p /home/exercise/lfcs-notes/notes_kk.txt
+RUN mkdir -p /home/exercise/lfcs-notes/
 
 EXPOSE 22
 
